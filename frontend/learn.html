@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Teaching Assistant - Dashboard</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background: linear-gradient(135deg,#eef2ff,#ffffff,#f3e8ff);
+}
+
+/* NAVBAR */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 60px;
+  background:#ffffff;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#4f46e5;
+}
+
+.nav-links a{
+  text-decoration:none;
+  margin-left:30px;
+  font-weight:500;
+  color:#333;
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+  color:#7c3aed;
+}
+
+/* MAIN CONTENT */
+.main{
+  text-align:center;
+  padding:60px 40px;
+}
+
+.main h1{
+  margin-bottom:40px;
+  font-size:32px;
+  color:#333;
+}
+
+/* CARDS */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.card{
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.card h3{
+  padding:20px;
+  font-size:18px;
+  color:#333;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">EduAI Mentor</div>
+
+  <div class="nav-links">
+    <a href="#">About</a>
+    <a href="#">Learn</a>
+    <a href="#">Teach</a>
+    <a href="#">Skills</a>
+    <a href="#">Contact</a>
+  </div>
+</div>
+
+<!-- MAIN SECTION -->
+<div class="main">
+  <h1>Select Your Learning Level</h1>
+
+  <div class="cards">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" alt="UKG to 5th">
+      <h3>UKG to 5th Grade</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7" alt="6th to 12th">
+      <h3>6th to 12th Grade</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" alt="College">
+      <h3>College Level</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40" alt="PhD">
+      <h3>PhD Level</h3>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

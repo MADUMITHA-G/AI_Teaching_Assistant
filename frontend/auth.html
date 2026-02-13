@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduAI Mentor - Authentication</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  background: linear-gradient(135deg,#eef2ff,#ffffff,#f3e8ff);
+  padding:40px 15px;
+}
+
+.container{
+  width:100%;
+  max-width:550px;
+  background:#fff;
+  padding:40px;
+  border-radius:15px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+}
+
+.toggle-buttons{
+  display:flex;
+  margin-bottom:30px;
+  background:#e5e7eb;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.toggle-buttons button{
+  flex:1;
+  padding:12px;
+  border:none;
+  background:transparent;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.toggle-buttons button.active{
+  background:linear-gradient(90deg,#2563eb,#7c3aed);
+  color:white;
+}
+
+form{
+  display:none;
+}
+
+form.active{
+  display:block;
+}
+
+.input-group{
+  margin-bottom:15px;
+}
+
+label{
+  font-size:14px;
+  font-weight:500;
+  color:#374151;
+}
+
+input, select{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+.submit-btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(90deg,#2563eb,#7c3aed);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.message{
+  margin-top:10px;
+  font-size:14px;
+  font-weight:500;
+}
+
+.success{ color:green; }
+.error{ color:red; }
+
+.hidden{ display:none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="toggle-buttons">
+    <button id="loginBtn" class="active" onclick="showLogin()">Login</button>
+    <button id="registerBtn" onclick="showRegister()">Register</button>
+  </div>
+
+  <!-- LOGIN -->
+  <form id="loginForm" class="active" onsubmit="loginUser(event)">
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" id="loginEmail" required>
+    </div>
+
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" required>
+    </div>
+
+    <button type="submit" class="submit-btn">Login</button>
+    <div id="loginMessage" class="message"></div>
+  </form>
+
+  <!-- REGISTER -->
+  <form id="registerForm" onsubmit="registerUser(event)">
+
+    <div class="input-group">
+      <label>First Name</label>
+      <input type="text" id="firstName" required>
+    </div>
+
+    <div class="input-group">
+      <label>Last Name</label>
+      <input type="text" id="lastName" required>
+    </div>
+
+    <div class="input-group">
+      <label>Age</label>
+      <input type="number" id="age" required>
+    </div>
+
+    <div class="input-group">
+      <label>Date of Birth</label>
+      <input type="date" id="dob" required>
+    </div>
+
+    <div class="input-group">
+      <label>Role</label>
+      <select id="role" onchange="toggleFields()" required>
+        <option value="">Select Role</option>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+      </select>
+    </div>
+
+    <!-- Teacher Fields -->
+    <div id="teacherFields" class="hidden">
+      <div class="input-group">
+        <label>Working Experience (Years)</label>
+        <input type="number" id="experience">
+      </div>
+
+      <div class="input-group">
+        <label>Subject / Specialization</label>
+        <input type="text" id="subject">
+      </div>
+    </div>
+
+    <!-- Student Fields -->
+    <div id="studentFields" class="hidden">
+      <div class="input-group">
+        <label>Grade / Level</label>
+        <input type="text" id="grade">
+      </div>
+
+      <div class="input-group">
+        <label>Area of Interest</label>
+        <input type="text" id="interest">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" id="registerEmail" required>
+    </div>
+
+    <div class="input-group">
+      <label>New Password</label>
+      <input type="password" id="registerPassword" required>
+    </div>
+
+    <div class="input-group">
+      <label>Repeat Password</label>
+      <input type="password" id="repeatPassword" required>
+    </div>
+
+    <button type="submit" class="submit-btn">Register</button>
+    <div id="registerMessage" class="message"></div>
+  </form>
+
+</div>
+
+<script>
+
+function showLogin(){
+  document.getElementById("loginForm").classList.add("active");
+  document.getElementById("registerForm").classList.remove("active");
+  document.getElementById("loginBtn").classList.add("active");
+  document.getElementById("registerBtn").classList.remove("active");
+}
+
+function showRegister(){
+  document.getElementById("registerForm").classList.add("active");
+  document.getElementById("loginForm").classList.remove("active");
+  document.getElementById("registerBtn").classList.add("active");
+  document.getElementById("loginBtn").classList.remove("active");
+}
+
+function toggleFields(){
+  const role = document.getElementById("role").value;
+
+  document.getElementById("teacherFields").classList.add("hidden");
+  document.getElementById("studentFields").classList.add("hidden");
+
+  if(role === "teacher"){
+    document.getElementById("teacherFields").classList.remove("hidden");
+  }
+  else if(role === "student"){
+    document.getElementById("studentFields").classList.remove("hidden");
+  }
+}
+
+function registerUser(e){
+  e.preventDefault();
+
+  const password = document.getElementById("registerPassword").value;
+  const repeat = document.getElementById("repeatPassword").value;
+
+  if(password !== repeat){
+    document.getElementById("registerMessage").innerHTML =
+      "<span class='error'>Passwords do not match</span>";
+    return;
+  }
+
+  const user = {
+    firstName: document.getElementById("firstName").value,
+    lastName: document.getElementById("lastName").value,
+    age: document.getElementById("age").value,
+    dob: document.getElementById("dob").value,
+    role: document.getElementById("role").value,
+    experience: document.getElementById("experience").value,
+    subject: document.getElementById("subject").value,
+    grade: document.getElementById("grade").value,
+    interest: document.getElementById("interest").value,
+    email: document.getElementById("registerEmail").value,
+    password: password
+  };
+
+  localStorage.setItem("userData", JSON.stringify(user));
+
+  document.getElementById("registerMessage").innerHTML =
+    "<span class='success'>Registered successfully! Please login.</span>";
+
+  showLogin();
+}
+
+function loginUser(e){
+  e.preventDefault();
+
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const storedUser = JSON.parse(localStorage.getItem("userData"));
+
+  if(storedUser && email === storedUser.email && password === storedUser.password){
+    window.location.href = "dashboard.html";
+  } else {
+    document.getElementById("loginMessage").innerHTML =
+      "<span class='error'>Email not registered. Please register first.</span>";
+  }
+}
+
+</script>
+
+</body>
+</html>
