@@ -6,7 +6,6 @@ from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
-
 # --- DATABASE LOGIC ---
 def init_db():
     conn = sqlite3.connect('assistant.db')
@@ -122,4 +121,5 @@ else:
                     contents=f"You are a {st.session_state.user_level} teaching assistant. {prompt}"
                 )
                 st.chat_message("assistant").write(response.text)
+
                 st.session_state.messages.append({"role": "assistant", "content": response.text})
