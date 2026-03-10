@@ -5,6 +5,7 @@ import hashlib
 from google import genai
 from dotenv import load_dotenv
 
+
 load_dotenv()
 # --- DATABASE LOGIC ---
 def init_db():
@@ -123,3 +124,4 @@ else:
                 st.chat_message("assistant").write(response.text)
 
                 st.session_state.messages.append({"role": "assistant", "content": response.text})
+
